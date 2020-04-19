@@ -24,6 +24,9 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/primeicons/primeicons.css",
+              "./node_modules/primeng/resources/themes/nova-light/theme.css",
+              "./node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +122,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "GetionComptabiliteFSTG"
+    }
+  },
+  "defaultProject": "GetionComptabiliteFSTG",
+  "cli": {
+    "analytics": "f484ebe4-bf3d-42a0-b520-28bf67b71b6a"
+  }
 }
