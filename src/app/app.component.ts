@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'GetionComptabiliteFSTG';
+  public _opened = false;
+
+  public _toggleSidebar() {
+    this._opened = !this._opened;
+  }
 }

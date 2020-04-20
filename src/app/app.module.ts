@@ -6,6 +6,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ButtonModule} from 'primeng/button';
+import {SidebarModule} from 'ng-sidebar';
+import {NavbarModule} from "./navbar/navbar.module";
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +17,9 @@ import {ButtonModule} from 'primeng/button';
     InputTextModule,
     PasswordModule,
     ReactiveFormsModule,
-    ButtonModule
+    ButtonModule,
+    SidebarModule.forRoot(),
+    NavbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
