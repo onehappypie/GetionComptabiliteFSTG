@@ -1,0 +1,80 @@
+<div class="container-fluid">
+  <p-toast></p-toast>
+  <div class="row">
+    <div class="col-md-6">
+      <p-calendar [maxDate]="today" class="float-right" [inputStyle]="{'width':'25vw'}" [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true">
+
+      </p-calendar>
+    </div>
+    <div class="col-md-6">
+      <p-autoComplete class="float-left" [inputStyle]="{'width':'25vw'}" [(ngModel)]="societe" [suggestions]="filtredSoc" (completeMethod)="filterSoc($event)" [size]="30"
+                      [minLength]="1" placeholder="Societes" [dropdown]="true">
+
+      </p-autoComplete>
+    </div>
+  </div>
+  <div class="row p-5">
+    <div class=" d-flex justify-content-center col-md-12">
+      <p-button icon="pi pi-check" label="Generate" (onClick)="generate()"></p-button>
+    </div>
+  </div>
+  <div *ngIf="showed==true" class="row col-md-10 d-flex justify-content-center m-auto" id="cpcTable">
+
+        <p-table  [value]="cpcSousclasse6" sortField="compteComptableVo.code" sortMode="single" (onSort)="onSort()">
+          <ng-template pTemplate="header">
+            <tr>
+              <th></th>
+              <th>Sous Classe</th>
+              <th>Compte comptable</th>
+              <th>montant</th>
+              <th>Total</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+              <td *ngIf="rowIndex===0" [attr.rowspan]="cpcSousclasse6.length">Classe 6</td>
+              <td  *ngIf="rowGroupMetadata[rowData.compteComptableVo.code].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.compteComptableVo.code].size">
+                {{rowData.compteComptableVo.sousClasseComptableVo.libelle}}
+              </td>
+              <td>{{rowData.compteComptableVo.libelle}}</td>
+              <td>{{rowData.montant}}</td>
+              <td *ngIf="rowGroupMetadata[rowData.compteComptableVo.code].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.compteComptableVo.code].size">
+                {{rowGroupMetadata[rowData.compteComptableVo.code].total}}
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="footer">
+            <tr>
+              <td colspan="4"> Total Charges</td>
+              <td>{{totalCharges}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+
+
+    <p-table [value]="cpcSousclasse7" sortField="compteComptableVo.code" sortMode="single" (onSort)="onSort()">
+
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+          <td *ngIf="rowIndex===0" [attr.rowspan]="cpcSousclasse7.length">Classe 7</td>
+          <td  *ngIf="rowGroupMetadata[rowData.compteComptableVo.code].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.compteComptableVo.code].size">
+            {{rowData.compteComptableVo.sousClasseComptableVo.libelle}}
+          </td>
+          <td>{{rowData.compteComptableVo.libelle}}</td>
+          <td>{{rowData.montant}}</td>
+          <td *ngIf="rowGroupMetadata[rowData.compteComptableVo.code].index === rowIndex" [attr.rowspan]="rowGroupMetadata[rowData.compteComptableVo.code].size">
+            {{rowGroupMetadata[rowData.compteComptableVo.code].total}}
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="4"> Total Produits</td>
+          <td>{{totalProduits}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

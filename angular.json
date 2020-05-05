@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "GetionComptabiliteFSTG": {
+    "Test": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/GetionComptabiliteFSTG",
+            "outputPath": "dist/Test",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,9 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/primeicons/primeicons.css",
-              "./node_modules/primeng/resources/themes/nova-light/theme.css",
-              "./node_modules/primeng/resources/primeng.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "GetionComptabiliteFSTG:build"
+            "browserTarget": "Test:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "GetionComptabiliteFSTG:build:production"
+              "browserTarget": "Test:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "GetionComptabiliteFSTG:build"
+            "browserTarget": "Test:build"
           }
         },
         "test": {
@@ -113,19 +113,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "GetionComptabiliteFSTG:serve"
+            "devServerTarget": "Test:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "GetionComptabiliteFSTG:serve:production"
+              "devServerTarget": "Test:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "GetionComptabiliteFSTG",
-  "cli": {
-    "analytics": "f484ebe4-bf3d-42a0-b520-28bf67b71b6a"
-  }
+    }},
+  "defaultProject": "Test"
 }

@@ -2,26 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {InputTextModule} from 'primeng/inputtext';
-import {PasswordModule} from 'primeng/password';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ButtonModule} from 'primeng/button';
-import {SidebarModule} from 'ng-sidebar';
-import {NavbarModule} from "./navbar/navbar.module";
+import { CpcGenerateComponent } from './pages/cpc-generate/cpc-generate.component';
+import {CalendarModule} from 'primeng/calendar';
+import {FormsModule} from "@angular/forms";
+import {AutoCompleteModule} from 'primeng/autocomplete';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from "primeng/api";
+import {TableModule} from "primeng/table";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CpcGenerateComponent
   ],
   imports: [
     BrowserModule,
-    InputTextModule,
-    PasswordModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    SidebarModule.forRoot(),
-    NavbarModule
+    CalendarModule,
+    FormsModule,
+    AutoCompleteModule,
+    BrowserAnimationsModule,
+    ToastModule,
+    TableModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

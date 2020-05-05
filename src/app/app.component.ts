@@ -6,10 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'GetionComptabiliteFSTG';
-  public _opened = false;
-
-  public _toggleSidebar() {
-    this._opened = !this._opened;
-  }
+  title = 'Test';
 }
