@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row p-5">
+    <div class="col-md-6">
+      <p-autoComplete class="float-right" [inputStyle]="{'width':'15vw'}" [(ngModel)]="societe" [suggestions]="filtredSoc" (completeMethod)="filterSoc($event)" [size]="30"
+                      [minLength]="1" placeholder="Societes" [dropdown]="true">
+
+      </p-autoComplete>
+    </div>
+    <div class="col-md-6">
+      <p-button icon="pi pi-check" label="Search" (onClick)="Search()"></p-button>
+    </div>
+
+
+  </div>
+  <div class="row" *ngIf="showed">
+    <div class="col-md-8">
+      <p-table [value]="factures">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Reference</th>
+            <th>Type</th>
+            <th>Annee</th>
+            <th>Mois</th>
+            <th>Total Ttc</th>
+            <th>Operations</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData  let-ri="rowIndex">
+          <tr>
+            <td>{{rowData.reference}}</td>
+            <td>{{rowData.typeFacture}}</td>
+            <td>{{rowData.annee}}</td>
+            <td>{{rowData.mois}}</td>
+            <td>{{rowData.totalTtc}}</td>
+            <td>
+              <button  pButton type="button" icon="pi pi-search" class="ui-button-info"  [style]="{'margin-right':'8px'}" (click)="operationShow(rowData)"></button>
+              <button  pButton type="button" icon="pi pi-trash" class="ui-button-info" (click)="delete(rowData)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+    <div class="col-md-4" *ngIf="displayDialog">
+      <p-table  [value]="operations" >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Libelle</th>
+            <th>Debit</th>
+            <th>Credit</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData  let-ri="rowIndex">
+          <tr [pEditableRow]="rowData">
+            <td>
+              {{rowData.libelle}}
+
+            </td>
+            <td>
+
+              {{rowData.typeOperationComptableVo.libelle=='Debit'? rowData.montant:'--'}}
+
+            </td>
+
+            <td>
+
+              {{rowData.typeOperationComptableVo.libelle=='Credit'? rowData.montant:'--'}}
+
+
+            </td>
+
+          </tr>
+        </ng-template>
+
+
+
+      </p-table>
+    </div>
+
+
+
+  </div>
+</div>

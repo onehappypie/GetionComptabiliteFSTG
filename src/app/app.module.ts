@@ -10,13 +10,25 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from "primeng/api";
 import {TableModule} from "primeng/table";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import { FactureSaveComponent } from './pages/facture-save/facture-save.component';
+import {InputTextModule} from "primeng/inputtext";
+import {DropdownModule} from "primeng/dropdown";
+import {DialogModule} from "primeng/dialog";
+import { FactureListComponent } from './pages/facture-list/facture-list.component';
+import {FactureService} from "./controller/service/facture.service";
+import { FactureFournisseurComponent } from './pages/facture-save/facture-fournisseur/facture-fournisseur.component';
+import { FactureClientComponent } from './pages/facture-save/facture-client/facture-client.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CpcGenerateComponent
+    CpcGenerateComponent,
+    FactureSaveComponent,
+    FactureListComponent,
+    FactureFournisseurComponent,
+    FactureClientComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +38,13 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     BrowserAnimationsModule,
     ToastModule,
     TableModule,
-    HttpClientModule
+    HttpClientModule,
+    InputTextModule,
+    DropdownModule,
+    DialogModule
   ],
-  providers: [MessageService],
+  providers: [MessageService,FactureService],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

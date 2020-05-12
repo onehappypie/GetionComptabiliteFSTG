@@ -1,0 +1,146 @@
+<div class="container">
+  <p-toast></p-toast>
+  <div class="row p-5">
+    <div class="col-md-6">
+      <div class="ui-inputgroup float-right">
+        <span class="ui-inputgroup-addon">Ref Facture</span>
+        <input [style]="{'width':'15vw'}" [(ngModel)]="facture.reference" type="text" pInputText placeholder="Reference" [disabled]="refreshed &&!newFac">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p-autoComplete [inputStyle]="{'width':'15vw'}" [(ngModel)]="facture.referenceSociete" [suggestions]="filtredSoc" (completeMethod)="filterSoc($event)" [size]="30"
+                      [minLength]="1" placeholder="Societes" [dropdown]="true">
+
+      </p-autoComplete>
+      <p-button icon="pi pi-refresh" class="ml-3" label="refresh" (onClick)="refresh()"></p-button>
+
+
+    </div>
+  </div>
+  <div *ngIf="refreshed">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="float-right">
+        <div class="ui-inputgroup float-left">
+          <span class="ui-inputgroup-addon">Type Facture</span>
+          <input [style]="{'width':'15vw'}" [(ngModel)]="facture.typeFacture" type="text" pInputText placeholder="Type">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="float-left">
+        <p-calendar [inputStyle]="{'width':'15vw'}" [(ngModel)]="facture.dateFacture" placeholder="Date"></p-calendar>
+      </div>
+    </div>
+  </div>
+  <div class="row p-5">
+    <div class="col-md-6">
+      <div class="ui-inputgroup float-right">
+        <input type="text" [style]="{'width':'15vw'}" pInputText [(ngModel)]="facture.totalHt" placeholder="Total Ht">
+        <span class="ui-inputgroup-addon">Dh</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="ui-inputgroup float-left">
+        <input type="text" [style]="{'width':'15vw'}" pInputText [(ngModel)]="facture.tva" placeholder="Tva">
+        <span class="ui-inputgroup-addon">Dh</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="newFac" class="row d-flex justify-content-center ">
+    <p-dropdown class="pr-4" placeholder="Type de paiement"  [options]="typepaiementsSelect" [(ngModel)]="typePaiement" [style]="{'width':'100%'}" (onChange)="select()" ></p-dropdown>
+    <p-dropdown placeholder="Compte Banquaire" *ngIf="selected && typePaiement.libelle=='Cheque'" [options]="selectCompteBanquaire" [(ngModel)]="compteBanquaire" [style]="{'width':'100%'}"></p-dropdown>
+    <p-dropdown placeholder="Caisses" *ngIf="selected && typePaiement.libelle=='Espece'" [options]="selectCaisses" [(ngModel)]="caisse" [style]="{'width':'100%'}"></p-dropdown>
+  </div>
+  <div class="row" *ngIf="newFac">
+    <div class="col-md-6 m-auto d-flex justify-content-center p-5">
+      <p-button icon="pi pi-check" label="Ok" (onClick)="show()"></p-button>
+    </div>
+  </div>
+  </div>
+  <div *ngIf="showed" class="row d-flex justify-content-center p-5">
+    <div class="col-md-8">
+
+      <p-table [value]="facture.operationComptablesVo" >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Libelle</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th style="width:10em">Action</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData  let-ri="rowIndex">
+          <tr [pEditableRow]="rowData">
+            <td>
+              {{rowData.libelle}}
+            </td>
+            <td>
+                  {{rowData.typeOperationComptableVo.libelle=='Debit'? rowData.montant:'--'}}
+            </td>
+            <td>
+                  {{rowData.typeOperationComptableVo.libelle=='Credit'? rowData.montant:'--'}}
+            </td>
+            <td style="text-align:center">
+              <button  pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info" style="margin-right: .5em" (click)="onRowEditInit(rowData)"></button>
+              <button  pButton type="button" pInitEditableRow icon="pi pi-trash" class="ui-button-info" (click)="delete(ri,rowData)"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-rowData>
+          <tr>
+            <td>Total</td>
+            <td>{{facture.totalDebit}}</td>
+            <td>{{facture.totalCredit}}</td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+          <div style="text-align:left">
+            <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Add"></button>
+          </div>
+        </ng-template>
+      </p-table>
+
+      <p-dialog header="Car Details" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true"  [modal]="true"  [style]="{width: '300px'}">
+        <div class="ui-g ui-fluid" *ngIf="operation">
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="vin">Libelle</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText id="vin" [(ngModel)]="operation.libelle" autofocus />
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="Type">Type operation</label>
+            </div>
+            <div class="ui-g-8">
+              <p-dropdown [options]="typeOpSelect" placeholder="Type De paiement" id="Type" [(ngModel)]="operation.typeOperationComptableVo" [style]="{'width':'100%'}"></p-dropdown>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="brand">Montant</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText id="brand" [(ngModel)]="operation.montant" />
+            </div>
+          </div>
+        </div>
+
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-check" (click)="saveOperation()" label="Save"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
+
+
+      <div class="d-flex justify-content-center p-3">
+        <p-button icon="pi pi-save" label="Save" (onClick)="save()" ></p-button>
+
+      </div>
+    </div>
+  </div>
+</div>

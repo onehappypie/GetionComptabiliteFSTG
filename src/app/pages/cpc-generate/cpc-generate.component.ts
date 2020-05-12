@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MessageService} from "primeng/api";
-import {CpcCompteComptableVo} from "../../controller/model/cpc-compte-comptable-vo.model";
 import {CpcCompteComptableServiceService} from "../../controller/service/cpc-compte-comptable-service.service";
+import {CpcCompteComptableVo} from "../../controller/model/cpc-compte-comptable-vo.model";
 
 @Component({
   selector: 'app-cpc-generate',
@@ -10,9 +10,9 @@ import {CpcCompteComptableServiceService} from "../../controller/service/cpc-com
 })
 export class CpcGenerateComponent implements OnInit {
   rangeDates: Date[];
-  societe:String;
-  societesList: String[]=['bmce','fstg','soc3'];
-  filtredSoc : String[];
+  societe:string;
+  societesList: string[]=['bmce','fstg','soc3'];
+  filtredSoc : string[];
   showed:boolean=false;
   rowGroupMetadata: {};
   today: Date=new Date();
